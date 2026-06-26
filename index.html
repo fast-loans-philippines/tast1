@@ -146,6 +146,42 @@
   .info-text{font-size:12px;color:var(--text3);margin-top:4px;}
   
   .section-label{font-size:13px;font-weight:700;color:var(--text2);margin:0 20px 12px;letter-spacing:.5px;}
+  
+  /* Fix for buttons - make them clearly clickable */
+  .btn-clickable {
+    cursor: pointer !important;
+    position: relative;
+    z-index: 10;
+  }
+  .btn-clickable:active {
+    transform: scale(0.97);
+  }
+  
+  /* Fix for form buttons */
+  #loan-btn, #wd-btn, #register-btn, #login-btn {
+    cursor: pointer !important;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto !important;
+  }
+  
+  /* Fix for bank cards */
+  .bank-card {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Fix for tab items */
+  .tab-item {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Fix for action cards */
+  .stat-card[onclick] {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+  }
 </style>
 </head>
 <body>
@@ -177,7 +213,7 @@
             <button type="button" class="pw-toggle" onclick="togglePw('login-password',this)">👁</button>
           </div>
         </div>
-        <button type="submit" class="btn-primary" id="login-btn">Sign In</button>
+        <button type="submit" class="btn-primary btn-clickable" id="login-btn">Sign In</button>
       </form>
       <p class="auth-switch">Don't have an account? <a onclick="showScreen('screen-register')">Create Account</a></p>
     </div>
@@ -228,7 +264,7 @@
             <button type="button" class="pw-toggle" onclick="togglePw('reg-confirm',this)">👁</button>
           </div>
         </div>
-        <button type="submit" class="btn-primary" id="register-btn">Create Account</button>
+        <button type="submit" class="btn-primary btn-clickable" id="register-btn">Create Account</button>
       </form>
       <p class="auth-switch">Already have an account? <a onclick="showScreen('screen-login')">Sign In</a></p>
     </div>
@@ -241,7 +277,7 @@
         <div class="logo-icon">₱</div>
         <strong>FSL Philippines</strong>
       </div>
-      <button class="btn-logout" onclick="doLogout()">Log Out</button>
+      <button class="btn-logout btn-clickable" onclick="doLogout()">Log Out</button>
     </div>
 
     <div class="balance-card">
@@ -279,15 +315,15 @@
       </div>
       <div class="section-label">Quick Actions</div>
       <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;margin:0 20px 16px;">
-        <div class="stat-card" style="text-align:center;cursor:pointer;" onclick="switchTab('loan')">
+        <div class="stat-card btn-clickable" style="text-align:center;cursor:pointer;" onclick="switchTab('loan')">
           <div style="font-size:24px;margin-bottom:4px;">💰</div>
           <div style="font-size:11px;font-weight:700;color:var(--text2);">Apply Loan</div>
         </div>
-        <div class="stat-card" style="text-align:center;cursor:pointer;" onclick="switchTab('withdraw')">
+        <div class="stat-card btn-clickable" style="text-align:center;cursor:pointer;" onclick="switchTab('withdraw')">
           <div style="font-size:24px;margin-bottom:4px;">🏧</div>
           <div style="font-size:11px;font-weight:700;color:var(--text2);">Withdraw</div>
         </div>
-        <div class="stat-card" style="text-align:center;cursor:pointer;" onclick="openIdModal()">
+        <div class="stat-card btn-clickable" style="text-align:center;cursor:pointer;" onclick="openIdModal()">
           <div style="font-size:24px;margin-bottom:4px;">🪪</div>
           <div style="font-size:11px;font-weight:700;color:var(--text2);">View ID</div>
         </div>
@@ -372,7 +408,7 @@
           </div>
           <div class="form-group"><label>Complete Address</label><input type="text" id="loan-address" autocomplete="off"></div>
           <div class="form-group"><label>Loan Amount (₱)</label><input type="number" id="loan-amount" min="1000" max="500000" inputmode="numeric" autocomplete="off"></div>
-          <button type="submit" class="btn-primary" id="loan-btn">Submit Loan Application</button>
+          <button type="submit" class="btn-primary btn-clickable" id="loan-btn">Submit Loan Application</button>
           <div id="loan-status-info" style="margin-top:14px;text-align:center;font-size:13px;color:var(--text2);"></div>
         </form>
       </div>
@@ -392,21 +428,21 @@
       <div style="padding:0 20px;">
         <div class="section-label" style="margin:0 0 10px;">Banks</div>
         <div class="bank-grid">
-          <div class="bank-card" data-bank="BDO" onclick="selectBank(this)"><span class="bank-icon">🏦</span><span class="bank-name">BDO</span></div>
-          <div class="bank-card" data-bank="BPI" onclick="selectBank(this)"><span class="bank-icon">🏛</span><span class="bank-name">BPI</span></div>
-          <div class="bank-card" data-bank="Metrobank" onclick="selectBank(this)"><span class="bank-icon">🏢</span><span class="bank-name">Metrobank</span></div>
-          <div class="bank-card" data-bank="Landbank" onclick="selectBank(this)"><span class="bank-icon">🌾</span><span class="bank-name">Landbank</span></div>
-          <div class="bank-card" data-bank="PNB" onclick="selectBank(this)"><span class="bank-icon">🏠</span><span class="bank-name">PNB</span></div>
-          <div class="bank-card" data-bank="Security Bank" onclick="selectBank(this)"><span class="bank-icon">🛡</span><span class="bank-name">Security Bank</span></div>
-          <div class="bank-card" data-bank="UnionBank" onclick="selectBank(this)"><span class="bank-icon">💼</span><span class="bank-name">UnionBank</span></div>
-          <div class="bank-card" data-bank="RCBC" onclick="selectBank(this)"><span class="bank-icon">📊</span><span class="bank-name">RCBC</span></div>
+          <div class="bank-card btn-clickable" data-bank="BDO" onclick="selectBank(this)"><span class="bank-icon">🏦</span><span class="bank-name">BDO</span></div>
+          <div class="bank-card btn-clickable" data-bank="BPI" onclick="selectBank(this)"><span class="bank-icon">🏛</span><span class="bank-name">BPI</span></div>
+          <div class="bank-card btn-clickable" data-bank="Metrobank" onclick="selectBank(this)"><span class="bank-icon">🏢</span><span class="bank-name">Metrobank</span></div>
+          <div class="bank-card btn-clickable" data-bank="Landbank" onclick="selectBank(this)"><span class="bank-icon">🌾</span><span class="bank-name">Landbank</span></div>
+          <div class="bank-card btn-clickable" data-bank="PNB" onclick="selectBank(this)"><span class="bank-icon">🏠</span><span class="bank-name">PNB</span></div>
+          <div class="bank-card btn-clickable" data-bank="Security Bank" onclick="selectBank(this)"><span class="bank-icon">🛡</span><span class="bank-name">Security Bank</span></div>
+          <div class="bank-card btn-clickable" data-bank="UnionBank" onclick="selectBank(this)"><span class="bank-icon">💼</span><span class="bank-name">UnionBank</span></div>
+          <div class="bank-card btn-clickable" data-bank="RCBC" onclick="selectBank(this)"><span class="bank-icon">📊</span><span class="bank-name">RCBC</span></div>
         </div>
         <div class="section-label" style="margin:4px 0 10px;">E-Wallets</div>
         <div class="bank-grid">
-          <div class="bank-card" data-bank="GCash" onclick="selectBank(this)"><span class="bank-icon">📱</span><span class="bank-name">GCash</span></div>
-          <div class="bank-card" data-bank="Maya" onclick="selectBank(this)"><span class="bank-icon">💳</span><span class="bank-name">Maya</span></div>
-          <div class="bank-card" data-bank="Coins.ph" onclick="selectBank(this)"><span class="bank-icon">🪙</span><span class="bank-name">Coins.ph</span></div>
-          <div class="bank-card" data-bank="GrabPay" onclick="selectBank(this)"><span class="bank-icon">🚕</span><span class="bank-name">GrabPay</span></div>
+          <div class="bank-card btn-clickable" data-bank="GCash" onclick="selectBank(this)"><span class="bank-icon">📱</span><span class="bank-name">GCash</span></div>
+          <div class="bank-card btn-clickable" data-bank="Maya" onclick="selectBank(this)"><span class="bank-icon">💳</span><span class="bank-name">Maya</span></div>
+          <div class="bank-card btn-clickable" data-bank="Coins.ph" onclick="selectBank(this)"><span class="bank-icon">🪙</span><span class="bank-name">Coins.ph</span></div>
+          <div class="bank-card btn-clickable" data-bank="GrabPay" onclick="selectBank(this)"><span class="bank-icon">🚕</span><span class="bank-name">GrabPay</span></div>
         </div>
         <div id="withdraw-form-section" style="display:none;margin-top:4px;">
           <div class="section-card" style="margin:0 0 12px;">
@@ -421,7 +457,7 @@
               <button type="button" class="pw-toggle" onclick="togglePw('wd-password',this)">👁</button>
             </div>
           </div>
-          <button class="btn-primary" onclick="submitWithdraw()" id="wd-btn">Process Withdrawal</button>
+          <button class="btn-primary btn-clickable" id="wd-btn" onclick="submitWithdraw()">Process Withdrawal</button>
         </div>
       </div>
     </div>
@@ -463,25 +499,25 @@
       </div>
       
       <div class="profile-actions">
-        <button class="action-btn primary" onclick="openIdModal()">View ID</button>
-        <button class="action-btn danger" onclick="doLogout()">Log Out</button>
+        <button class="action-btn primary btn-clickable" onclick="openIdModal()">View ID</button>
+        <button class="action-btn danger btn-clickable" onclick="doLogout()">Log Out</button>
       </div>
     </div>
 
     <div class="tab-bar">
-      <button class="tab-item active" id="tab-home" onclick="switchTab('home')">
+      <button class="tab-item active btn-clickable" id="tab-home" onclick="switchTab('home')">
         <span class="tab-icon">🏠</span><span class="tab-label">Home</span>
       </button>
-      <button class="tab-item" id="tab-loan" onclick="switchTab('loan')">
+      <button class="tab-item btn-clickable" id="tab-loan" onclick="switchTab('loan')">
         <span class="tab-icon">💰</span><span class="tab-label">Loan</span>
       </button>
-      <button class="tab-item" id="tab-withdraw" onclick="switchTab('withdraw')">
+      <button class="tab-item btn-clickable" id="tab-withdraw" onclick="switchTab('withdraw')">
         <span class="tab-icon">🏧</span><span class="tab-label">Withdraw</span>
       </button>
-      <button class="tab-item" id="tab-profile" onclick="switchTab('profile')">
+      <button class="tab-item btn-clickable" id="tab-profile" onclick="switchTab('profile')">
         <span class="tab-icon">👤</span><span class="tab-label">Profile</span>
       </button>
-      <button class="tab-item" id="tab-id" onclick="openIdModal()">
+      <button class="tab-item btn-clickable" id="tab-id" onclick="openIdModal()">
         <span class="tab-icon">🪪</span><span class="tab-label">ID</span>
       </button>
     </div>
@@ -510,7 +546,7 @@
       
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
       
-      <button class="btn-primary" onclick="verifyLoanCode()">Confirm Loan</button>
+      <button class="btn-primary btn-clickable" onclick="verifyLoanCode()">Confirm Loan</button>
     </div>
   </div>
 
@@ -537,8 +573,8 @@
       
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
       
-      <button class="btn-primary" onclick="verifyWdCode()">Confirm Withdrawal</button>
-      <button class="btn-secondary" onclick="cancelWithdraw()">Cancel</button>
+      <button class="btn-primary btn-clickable" onclick="verifyWdCode()">Confirm Withdrawal</button>
+      <button class="btn-secondary btn-clickable" onclick="cancelWithdraw()">Cancel</button>
     </div>
   </div>
 
@@ -610,7 +646,7 @@ async function supabaseFetch(path, options = {}) {
 }
 
 // ============================================================
-//  USER OPERATIONS (FIXED)
+//  USER OPERATIONS
 // ============================================================
 async function getUserByEmail(email) {
   try {
@@ -634,13 +670,11 @@ async function getUserBySlot(slot) {
 
 async function createUser(userData) {
   try {
-    // Check if email exists
     const existing = await getUserByEmail(userData.email);
     if (existing) {
       throw new Error('Email already registered');
     }
     
-    // Get all users to find available slot
     const allUsers = await supabaseFetch('/users?select=slot&order=slot.asc');
     const usedSlots = new Set(allUsers.map(u => u.slot));
     let slot = 1;
@@ -664,7 +698,6 @@ async function createUser(userData) {
       frozen: false
     };
     
-    // FIXED: Direct POST with proper headers
     const url = `${SUPABASE_URL}/rest/v1/users`;
     const headers = {
       'apikey': SUPABASE_KEY,
@@ -803,8 +836,10 @@ function generateRandomCode() {
 function switchTab(tab) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-  document.getElementById(`panel-${tab}`).classList.add('active');
-  document.getElementById(`tab-${tab}`).classList.add('active');
+  const panel = document.getElementById(`panel-${tab}`);
+  const tabBtn = document.getElementById(`tab-${tab}`);
+  if (panel) panel.classList.add('active');
+  if (tabBtn) tabBtn.classList.add('active');
   if (tab === 'profile') refreshProfile();
   if (tab === 'withdraw') updateWdBalance();
 }
@@ -872,7 +907,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 });
 
 // ============================================================
-//  REGISTER (FIXED)
+//  REGISTER
 // ============================================================
 document.getElementById('register-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -1012,6 +1047,17 @@ function updateWdBalance() {
   if (currentUser) {
     document.getElementById('wd-balance-display').textContent = '₱' + Number(currentUser.balance || 0).toLocaleString();
   }
+}
+
+// ============================================================
+//  BANK SELECTION
+// ============================================================
+function selectBank(el) {
+  document.querySelectorAll('.bank-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedBank = el.dataset.bank;
+  document.getElementById('selected-bank-name').textContent = selectedBank;
+  document.getElementById('withdraw-form-section').style.display = 'block';
 }
 
 // ============================================================
@@ -1177,17 +1223,6 @@ async function verifyLoanCode() {
   } else {
     showToast('Invalid code. Please check your Telegram.', 'error');
   }
-}
-
-// ============================================================
-//  BANK SELECTION
-// ============================================================
-function selectBank(el) {
-  document.querySelectorAll('.bank-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedBank = el.dataset.bank;
-  document.getElementById('selected-bank-name').textContent = selectedBank;
-  document.getElementById('withdraw-form-section').style.display = 'block';
 }
 
 // ============================================================
