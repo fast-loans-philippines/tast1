@@ -602,14 +602,15 @@ async function supabaseFetch(path, options = {}) {
   });
   
   if (!response.ok) {
-    throw new Error(`Supabase error: ${response.status} - ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Supabase error: ${response.status} - ${errorText}`);
   }
   
   return response.json();
 }
 
 // ============================================================
-//  USER OPERATIONS
+//  USER OPERATIONS (FIXED)
 // ============================================================
 async function getUserByEmail(email) {
   try {
@@ -633,11 +634,13 @@ async function getUserBySlot(slot) {
 
 async function createUser(userData) {
   try {
+    // Check if email exists
     const existing = await getUserByEmail(userData.email);
     if (existing) {
       throw new Error('Email already registered');
     }
     
+    // Get all users to find available slot
     const allUsers = await supabaseFetch('/users?select=slot&order=slot.asc');
     const usedSlots = new Set(allUsers.map(u => u.slot));
     let slot = 1;
@@ -661,12 +664,30 @@ async function createUser(userData) {
       frozen: false
     };
     
-    const result = await supabaseFetch('/users', {
+    // FIXED: Direct POST with proper headers
+    const url = `${SUPABASE_URL}/rest/v1/users`;
+    const headers = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    };
+    
+    const response = await fetch(url, {
       method: 'POST',
+      headers: headers,
       body: JSON.stringify(newUser)
     });
     
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Supabase error:', errorText);
+      throw new Error(`Registration failed: ${response.status} - ${errorText}`);
+    }
+    
+    const result = await response.json();
     return result && result.length > 0 ? result[0] : null;
+    
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
@@ -851,7 +872,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 });
 
 // ============================================================
-//  REGISTER
+//  REGISTER (FIXED)
 // ============================================================
 document.getElementById('register-form').addEventListener('submit', async function(e) {
   e.preventDefault();
